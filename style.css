@@ -1,0 +1,532 @@
+/* ================= GLOBAL VARIABLES & IMPORT ================= */
+/* Modern Font Import kar rahe hain "Poppins" - Ye jyada premium lagta hai */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* New TrustDekho Theme - Modern & Premium */
+    --primary-color: #0f172a;      /* Dark Navy Blue (Trust/Authority) */
+    --accent-color: #10b981;       /* Mint Green (Success/Verified) */
+    --bg-color: #f8fafc;           /* Very Light Greyish Blue (Clean look) */
+    --card-bg: #ffffff;            /* Pure White */
+    --text-main: #1e293b;          /* Soft Black */
+    --text-light: #64748b;         /* Slate Grey */
+    --border-radius: 12px;         /* Modern Rounded Corners */
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Font Override */
+    --font-main: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1280px; /* Thoda aur wide screen */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================= HEADER SECTION (Modern SaaS Style) ================= */
+.main-header {
+    background-color: var(--card-bg); /* White Header */
+    height: 80px; /* Thoda bada header premium feel ke liye */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-soft);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+/* Logo Styling */
+.logo a {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: -0.5px;
+}
+
+.logo .highlight {
+    color: var(--accent-color); /* Green Highlight */
+}
+
+.logo .tagline {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.logo .tagline i {
+    color: #f59e0b; /* Star color */
+}
+
+/* Search Box - Rounded & Clean */
+.search-box {
+    background: #f1f5f9;
+    width: 45%;
+    border-radius: 50px; /* Full Rounded pill shape */
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent-color);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.search-box button {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+.search-box button:hover {
+    color: var(--primary-color);
+}
+
+/* Nav Links - Buttons style */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-item a {
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.nav-item a:hover {
+    color: var(--accent-color);
+}
+
+/* Login Button - Modern Gradient */
+.nav-item.login-btn button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(15, 23, 42, 0.2);
+    font-family: var(--font-main);
+}
+
+.nav-item.login-btn button:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* ================= CATEGORY NAV (Floating Pills) ================= */
+.category-nav {
+    background: transparent;
+    padding: 20px 0;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+.cat-list {
+    display: flex;
+    justify-content: center; /* Center align items */
+    gap: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    padding: 10px 15px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    min-width: 90px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #f1f5f9;
+}
+
+.cat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+}
+
+.cat-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+/* ================= HERO SLIDER ================= */
+.hero-slider {
+    margin: 10px 0 30px 0;
+    padding: 0 20px;
+}
+
+.slider-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px; /* Soft round corners */
+    box-shadow: var(--shadow-hover);
+}
+
+/* ================= TRUST FEATURES (Glassmorphism) ================= */
+.trust-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Dark Gradient */
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-hover);
+    color: white;
+}
+
+.trust-item {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1); /* Glass effect */
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+}
+
+.trust-item i {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+}
+
+/* ================= PRODUCT SECTION ================= */
+.product-section {
+    background: transparent;
+    padding: 0 20px;
+    margin-bottom: 50px;
+    box-shadow: none;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    margin-bottom: 25px;
+}
+
+.section-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    position: relative;
+}
+
+/* Stylish underline for heading */
+.section-header h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.view-all-btn {
+    background-color: transparent;
+    color: var(--accent-color);
+    padding: 8px 20px;
+    font-weight: 600;
+    border: 2px solid var(--accent-color);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    box-shadow: none;
+}
+
+.view-all-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* PRODUCT GRID & CARD (The Star of the Show) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--card-bg);
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    padding: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-10px); /* Upar udega */
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.card-img {
+    position: relative;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    background: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-img img {
+    max-height: 85%;
+    max-width: 85%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-img img {
+    transform: scale(1.1) rotate(2deg); /* Image zoom aur tilt hogi */
+}
+
+/* Unique Video Badge */
+.video-tag {
+    position: absolute;
+    top: 10px; /* Bottom se top pe shift kiya for better look */
+    right: 10px;
+    left: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #ef4444;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 2;
+}
+
+.video-tag i {
+    color: #ef4444;
+}
+
+.card-details h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.rating-badge {
+    background-color: #fef3c7; /* Pale Yellow bg */
+    color: #d97706; /* Dark Gold text */
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.price-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.current-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.discount {
+    font-size: 0.75rem;
+    background: #dcfce7; /* Light Green */
+    color: var(--accent-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.original-price {
+    display: none; /* Clean look ke liye original price hide kar di, optional hai */
+}
+
+.tester-note {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 10px;
+    margin-top: 5px;
+}
+
+.tester-note strong {
+    color: var(--primary-color);
+}
+
+/* ================= FOOTER ================= */
+.main-footer {
+    background-color: var(--primary-color);
+    color: #94a3b8;
+    padding: 60px 0 0 0;
+    margin-top: 60px;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-col h5 {
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer-col ul li a {
+    color: #94a3b8;
+    transition: 0.3s;
+}
+
+.footer-col ul li a:hover {
+    color: var(--accent-color);
+    padding-left: 5px; /* Thoda slide effect */
+}
+
+.sub-footer {
+    text-align: center;
+    padding: 25px;
+    background-color: #020617; /* Even darker footer bottom */
+    color: #64748b;
+}
+
+/* ================= RESPONSIVE (Mobile) ================= */
+@media (max-width: 768px) {
+    .main-header {
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .search-box {
+        width: 100%;
+        order: 2; /* Search bar logo ke neeche aayega */
+    }
+    
+    .logo {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        order: 3;
+    }
+
+    .trust-features {
+        grid-template-columns: 1fr; /* Stack vertically on mobile */
+        padding: 20px;
+    }
+    
+    .trust-item {
+        justify-content: start;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .card-img {
+        height: 140px;
+    }
+}
