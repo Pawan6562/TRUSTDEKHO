@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - TrustDekhoIndia</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+
+    <header class="main-header" style="height: 60px;">
+        <div class="container header-content" style="justify-content: flex-start; gap: 20px;">
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </a>
+            
+            <div class="logo">
+                <a href="index.html">
+                    <h2>TrustDekho<span class="highlight">India</span></h2>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container product-page-container">
+        
+        <div id="loading">
+            <h2>Loading Product Details...</h2>
+            <p>Please wait while we fetch the verified review.</p>
+        </div>
+
+        <div class="product-wrapper" id="productContent" style="display: none;">
+            
+            <div class="product-media">
+                <div class="main-image-box">
+                    <img id="p-image" src="" alt="Product Image">
+                    <div class="video-overlay-btn" id="playVideoBtn">
+                        <i class="fa-solid fa-play"></i> Watch Review
+                    </div>
+                </div>
+                
+                <div id="videoPlayerSection" class="video-player-box" style="display:none;">
+                    <iframe id="youtubeFrame" width="100%" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <button class="close-video" id="closeVideoBtn">Close Video & Return to Image</button>
+                </div>
+            </div>
+
+            <div class="product-info">
+                
+                <div class="tester-badge" id="p-tester"></div>
+
+                <h1 id="p-name">Product Name</h1>
+                
+                <div class="rating-row">
+                    <span class="rating-pill" id="p-rating">0.0 <i class="fa-solid fa-star"></i></span>
+                    <span class="review-count">Verified by Independent Testers</span>
+                </div>
+
+                <div class="price-block">
+                    <span class="current-price" id="p-price">₹0</span>
+                    <span class="original-price" id="p-original">₹0</span>
+                    <span class="discount-tag" id="p-discount">0% off</span>
+                </div>
+
+                <div class="trust-note">
+                    <p><i class="fa-solid fa-shield-halved"></i> <strong>Trust Check:</strong> This product matches the video review description.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" id="buy-amazon" target="_blank" class="buy-btn amazon-btn">
+                        <i class="fa-brands fa-amazon"></i> Buy on Amazon
+                    </a>
+                    <a href="#" id="buy-flipkart" target="_blank" class="buy-btn flipkart-btn">
+                        <img src="https://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/flipkart-plus_8d85f4.png" width="20" style="filter: brightness(0) invert(1);"> 
+                        Buy on Flipkart
+                    </a>
+                </div>
+
+                <div class="product-desc">
+                    <h3>Quick Verdict</h3>
+                    <p id="p-desc">Loading description...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="productdata.js"></script> 
+    
+    <script src="product.js"></script> 
+
+</body>
+</html>
