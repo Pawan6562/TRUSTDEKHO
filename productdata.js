@@ -23,7 +23,7 @@ const productsData = [
             amazon: "https://www.amazon.in/dp/example",
             flipkart: "https://www.flipkart.com/example"
         }
-    }, // <--- YE COMMA BOHOT ZAROORI HAI (Jab naya product add karo)
+    },
     {
         id: 2,
         name: "Sony WH-1000XM5 Noise Cancelling",
@@ -46,5 +46,4 @@ const productsData = [
             flipkart: "https://www.flipkart.com"
         }
     }
-    // Aur products yahan comma laga kar add karna...
 ];
