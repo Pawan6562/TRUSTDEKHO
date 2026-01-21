@@ -1,0 +1,276 @@
+/* ================= PRODUCT PAGE STYLES ================= */
+
+/* Main Container ki spacing */
+.product-page-container {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    min-height: 80vh; /* Kam se kam screen height le */
+}
+
+/* BACK BUTTON */
+.back-btn {
+    font-weight: 600;
+    color: #64748b; /* Slate color */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    color: #2874f0; /* Blue hover */
+    background: #eef2ff;
+}
+
+/* ================= LOADING & ERROR STATE ================= */
+#loading {
+    text-align: center;
+    padding: 50px 20px;
+    color: #64748b;
+}
+
+#loading h2, #loading h3 {
+    margin-bottom: 10px;
+    color: #334155;
+}
+
+/* ================= PRODUCT LAYOUT (Wrapper) ================= */
+.product-wrapper {
+    /* JS isko 'display: grid' karega, par default hum yahan set rakhte hain */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Desktop: 2 Columns */
+    gap: 40px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    
+    /* Important: Mobile pe layout tootna nahi chahiye */
+    max-width: 100%; 
+    overflow: hidden;
+}
+
+/* ================= LEFT SIDE: MEDIA (Image/Video) ================= */
+.product-media {
+    position: relative;
+    width: 100%;
+}
+
+.main-image-box {
+    width: 100%;
+    height: 400px; /* Fixed height for consistency */
+    background: #f8fafc;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border: 1px solid #e2e8f0;
+}
+
+.main-image-box img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Image stretch nahi hogi */
+}
+
+/* Watch Video Button (Overlay) */
+.video-overlay-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #ef4444; /* YouTube Red */
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #fecaca;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
+    z-index: 10;
+}
+
+.video-overlay-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    background: #ef4444;
+    color: white;
+}
+
+/* Video Player Box (Initially Hidden) */
+.video-player-box {
+    width: 100%;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.close-video {
+    width: 100%;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.close-video:hover {
+    background: #ef4444;
+}
+
+/* ================= RIGHT SIDE: INFO ================= */
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info h1 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+/* Rating */
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.rating-pill {
+    background: #10b981; /* Green */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.review-count {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* Price Section */
+.price-block {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #cbd5e1;
+}
+
+.price-block .current-price {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-right: 12px;
+}
+
+.price-block .original-price {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+
+.price-block .discount-tag {
+    font-size: 1rem;
+    color: #16a34a;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+/* Trust Note Box */
+.trust-note {
+    background: #ecfdf5; /* Light Green Bg */
+    border: 1px solid #a7f3d0;
+    padding: 12px;
+    border-radius: 8px;
+    color: #065f46;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.buy-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.buy-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.amazon-btn {
+    background-color: #FF9900;
+    color: #232F3E;
+    border: 1px solid #ff9900;
+}
+
+.flipkart-btn {
+    background-color: #2874f0;
+    color: white;
+    border: 1px solid #2874f0;
+}
+
+/* Description */
+.product-desc h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+.product-desc p {
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* ================= RESPONSIVE DESIGN (MOBILE) ================= */
+@media (max-width: 768px) {
+    .product-wrapper {
+        grid-template-columns: 1fr; /* Stack one below another */
+        padding: 20px;
+        gap: 25px;
+    }
+
+    .main-image-box {
+        height: 300px; /* Thoda chhota image box mobile ke liye */
+    }
+
+    .product-info h1 {
+        font-size: 1.4rem;
+    }
+
+    .price-block .current-price {
+        font-size: 1.8rem;
+    }
+}
