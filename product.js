@@ -1,98 +1,36 @@
-// FILE: product.js
-// Ye version screen par errors print karega taaki hume pata chale dikat kahan hai.
+// FILE: product.js (With Swipe & Custom Player)
 
-// 1. GLOBAL ERROR HANDLER (Agar code fatata hai to ye catch karega)
-window.onerror = function(message, source, lineno, colno, error) {
-    const loadingDiv = document.getElementById('loading');
-    if (loadingDiv) {
-        loadingDiv.innerHTML = `
-            <h3 style="color:red;">⚠️ CRITICAL ERROR (Code Crash)</h3>
-            <p><strong>Error:</strong> ${message}</p>
-            <p><strong>Line:</strong> ${lineno}</p>
-            <p>Check console for more details.</p>
-        `;
-    }
-    return false;
+const getPlatformIcon = (platform) => {
+    if (platform === 'youtube') return '<i class="fa-brands fa-youtube" style="color: #ff0000;"></i>';
+    if (platform === 'instagram') return '<i class="fa-brands fa-instagram" style="color: #E1306C;"></i>';
+    return '<i class="fa-solid fa-link"></i>';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Debugging message
-    console.log("Product JS Loaded successfully.");
-
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
     const loadingDiv = document.getElementById('loading');
     const contentDiv = document.getElementById('productContent');
 
-    // 2. CHECK IF DATA FILE IS LOADED
-    // Hum check kar rahe hain ki 'productdata.js' se 'productsData' variable aaya ya nahi
-    if (typeof productsData === 'undefined' || !Array.isArray(productsData)) {
-        loadingDiv.innerHTML = `
-            <h3 style="color:red;">❌ Data File Error</h3>
-            <p>Variable <code>productsData</code> nahi mila.</p>
-            <p><strong>Solution:</strong> Check karein ki 'productdata.js' file mein koi syntax error (missing comma/bracket) to nahi hai?</p>
-        `;
-        return; // Yahi ruk jao
-    }
-
-    // 3. GET ID FROM URL
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get('id');
-
-    // Debugging
-    console.log("URL ID Detected:", productId);
-
-    // CASE A: URL mein ID hi nahi hai (e.g., product.html)
-    if (!productId) {
-        loadingDiv.innerHTML = `
-            <div style="text-align:center; padding:20px;">
-                <h3>⚠️ No Product Selected</h3>
-                <p>URL mein Product ID missing hai.</p>
-                <a href="index.html" style="background:#2874f0; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Go to Home Page</a>
-            </div>
-        `;
+    if (!productId || typeof productsData === 'undefined') {
+        loadingDiv.innerHTML = "<h3>Error: Product Not Found</h3>";
         return;
     }
 
-    // 4. FIND PRODUCT IN DATABASE
-    // Note: '==' use kiya taaki string "1" aur number 1 match ho jayein
     const product = productsData.find(p => p.id == productId);
 
-    // CASE B: ID to hai, par Database mein product nahi mila (e.g., product.html?id=99)
-    if (!product) {
-        loadingDiv.innerHTML = `
-            <div style="text-align:center; padding:20px;">
-                <h3 style="color:orange;">🔍 Product Not Found</h3>
-                <p>Sorry, Product ID <strong>${productId}</strong> hamare database mein nahi hai.</p>
-                <a href="index.html" style="color:blue;">Return to Home</a>
-            </div>
-        `;
-        return;
-    }
-
-    // CASE C: SUCCESS! Product mil gaya
-    try {
-        // --- UI HIDE/SHOW ---
+    if (product) {
         loadingDiv.style.display = 'none';
         contentDiv.style.display = 'grid';
 
-        // --- FILL DATA ---
-        document.getElementById('p-image').src = product.image || 'https://via.placeholder.com/400';
+        // Basic Info Fill
         document.getElementById('p-name').innerText = product.name;
         document.getElementById('p-rating').innerHTML = `${product.rating} <i class="fa-solid fa-star"></i>`;
         document.getElementById('p-price').innerText = `₹${product.price}`;
         document.getElementById('p-original').innerText = `₹${product.originalPrice}`;
         document.getElementById('p-discount').innerText = product.discount;
-        
-        if(document.getElementById('p-desc')) {
-            document.getElementById('p-desc').innerText = product.desc;
-        }
-
-        // Helper function for icon
-        const getPlatformIcon = (platform) => {
-            if (platform === 'youtube') return '<i class="fa-brands fa-youtube" style="color: #ff0000;"></i>';
-            if (platform === 'instagram') return '<i class="fa-brands fa-instagram" style="color: #E1306C;"></i>';
-            return '<i class="fa-solid fa-link"></i>';
-        };
+        if(document.getElementById('p-desc')) document.getElementById('p-desc').innerText = product.desc;
 
         const platformIcon = getPlatformIcon(product.tester.platform);
         document.getElementById('p-tester').innerHTML = `
@@ -100,42 +38,178 @@ document.addEventListener('DOMContentLoaded', () => {
                 Verified Tester: ${platformIcon} <strong>${product.tester.name}</strong> <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
             </a>
         `;
-
-        // Buttons
         document.getElementById('buy-amazon').href = product.links.amazon;
         document.getElementById('buy-flipkart').href = product.links.flipkart;
 
-        // Video Player Logic
-        const playBtn = document.getElementById('playVideoBtn');
-        const videoSection = document.getElementById('videoPlayerSection');
-        const iframe = document.getElementById('youtubeFrame');
-        const closeBtn = document.getElementById('closeVideoBtn');
-        const imageBox = document.querySelector('.main-image-box');
+        // --- ADVANCED GALLERY LOGIC ---
+        const mainDisplay = document.getElementById('mainDisplay');
+        const thumbnailList = document.getElementById('thumbnailList');
+        const gallery = product.gallery || [{ type: 'image', url: product.image }];
+        
+        let currentIndex = 0;
 
-        if (playBtn) {
-            playBtn.onclick = function() {
-                if(product.videoId) {
-                    iframe.src = `https://www.youtube.com/embed/${product.videoId}?autoplay=1`;
-                    imageBox.style.display = 'none';
-                    videoSection.style.display = 'block';
+        // Function to Render Media
+        const renderMedia = (index) => {
+            const item = gallery[index];
+            mainDisplay.innerHTML = ''; // Clear
+
+            // Add Navigation Arrows
+            mainDisplay.innerHTML += `
+                <div class="nav-arrow nav-prev" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="nav-arrow nav-next" onclick="nextSlide()"><i class="fa-solid fa-chevron-right"></i></div>
+            `;
+
+            if (item.type === 'video') {
+                // CUSTOM VIDEO PLAYER HTML
+                const videoHTML = `
+                    <div class="custom-video-wrapper">
+                        <video id="activeVideo" src="${item.url}" poster="${item.poster || ''}"></video>
+                        <div class="center-play-btn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></div>
+                        <div class="video-controls">
+                            <button class="control-btn" onclick="togglePlay()"><i class="fa-solid fa-play" id="playIcon"></i></button>
+                            <div class="progress-container" onclick="seekVideo(event)">
+                                <div class="progress-fill" id="progressBar"></div>
+                            </div>
+                            <button class="control-btn" onclick="toggleMute()"><i class="fa-solid fa-volume-high" id="volIcon"></i></button>
+                        </div>
+                    </div>
+                `;
+                mainDisplay.innerHTML += videoHTML;
+                setupVideoEvents(); // Initialize player logic
+            } else {
+                // IMAGE
+                mainDisplay.innerHTML += `<img src="${item.url}" alt="Product View">`;
+            }
+
+            // Update Thumbnails
+            updateThumbnails(index);
+        };
+
+        // Update Thumbnail Styles
+        const updateThumbnails = (index) => {
+            document.querySelectorAll('.thumb-item').forEach((thumb, idx) => {
+                if (idx === index) {
+                    thumb.classList.add('active');
+                    thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 } else {
-                    alert("Video Preview Not Available");
+                    thumb.classList.remove('active');
                 }
-            };
+            });
+        };
+
+        // Initialize Thumbnails List
+        thumbnailList.innerHTML = gallery.map((item, index) => {
+            let thumbContent = '';
+            // Use 'poster' for video thumbnail if available
+            let thumbImg = item.type === 'video' && item.poster ? item.poster : item.url;
+            
+            if (item.type === 'video') {
+                thumbContent = `
+                    <div class="video-indicator"><i class="fa-solid fa-play"></i></div>
+                    <img src="${thumbImg}" alt="Video" onerror="this.src='https://via.placeholder.com/100?text=VIDEO'">
+                `;
+            } else {
+                thumbContent = `<img src="${thumbImg}" alt="View ${index}">`;
+            }
+
+            return `<div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="goToSlide(${index})">${thumbContent}</div>`;
+        }).join('');
+
+        // --- NAVIGATION FUNCTIONS ---
+        window.goToSlide = (index) => {
+            currentIndex = index;
+            renderMedia(currentIndex);
+        };
+
+        window.nextSlide = () => {
+            currentIndex = (currentIndex + 1) % gallery.length; // Loop back to start
+            renderMedia(currentIndex);
+        };
+
+        window.prevSlide = () => {
+            currentIndex = (currentIndex - 1 + gallery.length) % gallery.length; // Loop to end
+            renderMedia(currentIndex);
+        };
+
+        // --- TOUCH SWIPE LOGIC (Mobile) ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        mainDisplay.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        mainDisplay.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        const handleSwipe = () => {
+            if (touchEndX < touchStartX - 50) nextSlide(); // Swipe Left -> Next
+            if (touchEndX > touchStartX + 50) prevSlide(); // Swipe Right -> Prev
+        };
+
+        // --- CUSTOM VIDEO PLAYER FUNCTIONS ---
+        window.togglePlay = () => {
+            const video = document.getElementById('activeVideo');
+            const centerBtn = document.querySelector('.center-play-btn');
+            const playIcon = document.getElementById('playIcon');
+
+            if (video.paused) {
+                video.play();
+                centerBtn.style.display = 'none'; // Hide center button
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            } else {
+                video.pause();
+                centerBtn.style.display = 'block'; // Show center button
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+        };
+
+        window.toggleMute = () => {
+            const video = document.getElementById('activeVideo');
+            const volIcon = document.getElementById('volIcon');
+            video.muted = !video.muted;
+            if(video.muted) {
+                volIcon.classList.remove('fa-volume-high');
+                volIcon.classList.add('fa-volume-xmark');
+            } else {
+                volIcon.classList.remove('fa-volume-xmark');
+                volIcon.classList.add('fa-volume-high');
+            }
+        };
+
+        window.seekVideo = (e) => {
+            const video = document.getElementById('activeVideo');
+            const progressBar = document.querySelector('.progress-container');
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+        };
+
+        function setupVideoEvents() {
+            const video = document.getElementById('activeVideo');
+            const bar = document.getElementById('progressBar');
+            if(video) {
+                video.addEventListener('timeupdate', () => {
+                    const percent = (video.currentTime / video.duration) * 100;
+                    bar.style.width = `${percent}%`;
+                });
+                // Video khatam hone pe reset
+                video.addEventListener('ended', () => {
+                    document.querySelector('.center-play-btn').style.display = 'block';
+                    document.getElementById('playIcon').classList.remove('fa-pause');
+                    document.getElementById('playIcon').classList.add('fa-play');
+                });
+            }
         }
 
-        if (closeBtn) {
-            closeBtn.onclick = function() {
-                iframe.src = "";
-                videoSection.style.display = 'none';
-                imageBox.style.display = 'flex';
-            };
-        }
+        // Initialize First Slide
+        renderMedia(0);
 
-    } catch (err) {
-        // Agar data bharte waqt koi error aaya
-        console.error(err);
-        loadingDiv.style.display = 'block';
-        loadingDiv.innerHTML = `<h3 style="color:red;">Error Displaying Data: ${err.message}</h3>`;
+    } else {
+        loadingDiv.innerHTML = "<h2>Product Not Found!</h2>";
     }
 });
