@@ -1,5 +1,4 @@
 // FILE: productdata.js
-// Isme sirf data rahega. Ye tera DATABASE hai.
 
 const productsData = [
     {
@@ -11,8 +10,16 @@ const productsData = [
         discount: "56% off",
         rating: 4.5,
         image: "https://m.media-amazon.com/images/I/61t-XG6vTUL._SL1500_.jpg",
-        desc: "Best budget earbuds with ANC. Bass heavy sound, perfect for gym and travel. 42H Playtime.",
-        videoId: "vA2jM4yVd0A",
+        
+        gallery: [
+            { type: 'image', url: "https://m.media-amazon.com/images/I/61t-XG6vTUL._SL1500_.jpg" },
+            { type: 'image', url: "https://m.media-amazon.com/images/I/51O0S8v0+BL._SL1500_.jpg" },
+            { type: 'image', url: "https://m.media-amazon.com/images/I/61j39j+ko6L._SL1500_.jpg" },
+            // Video without poster (Fallback use karega)
+            { type: 'video', url: "https://www.w3schools.com/html/mov_bbb.mp4" } 
+        ],
+
+        desc: "Best budget earbuds with ANC. Bass heavy sound. 42H Playtime.",
         tester: {
             name: "Tech Burner",
             platform: "youtube",
@@ -33,8 +40,20 @@ const productsData = [
         discount: "20% off",
         rating: 4.8,
         image: "https://m.media-amazon.com/images/I/51SKmu2G9FL._SL1200_.jpg",
-        desc: "Industry leading noise cancellation. Extremely comfortable but expensive.",
-        videoId: "2t5q3Xo6b8Y",
+        
+        gallery: [
+            { type: 'image', url: "https://m.media-amazon.com/images/I/51SKmu2G9FL._SL1200_.jpg" },
+            { type: 'image', url: "https://m.media-amazon.com/images/I/61C66qTqnwL._AC_AIweblab1006854,T4_FMavif_SF1050,1050_PQ64_.jpg?aicid=detailPage-mediaBlock" },
+            // VIDEO MEIN "POSTER" ADD KIYA HAI (Thumbnail ke liye)
+            { 
+                type: 'video', 
+                url: "https://www.w3schools.com/html/movie.mp4",
+                poster: "https://m.media-amazon.com/images/I/61C66qTqnwL._AC_AIweblab1006854,T4_FMavif_SF1050,1050_PQ64_.jpg?aicid=detailPage-mediaBlock" // Ye photo dikhegi thumbnail mein
+            },
+            { type: 'image', url: "https://m.media-amazon.com/images/I/61C66qTqnwL._AC_AIweblab1006854,T4_FMavif_SF1050,1050_PQ64_.jpg?aicid=detailPage-mediaBlock" }
+        ],
+
+        desc: "Industry leading noise cancellation. Extremely comfortable.",
         tester: {
             name: "Gyan Therapy",
             platform: "instagram",
