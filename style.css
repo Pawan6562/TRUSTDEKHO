@@ -1,20 +1,18 @@
 /* ================= GLOBAL VARIABLES & IMPORT ================= */
-/* Modern Font Import kar rahe hain "Poppins" - Ye jyada premium lagta hai */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-    /* New TrustDekho Theme - Modern & Premium */
-    --primary-color: #0f172a;      /* Dark Navy Blue (Trust/Authority) */
-    --accent-color: #10b981;       /* Mint Green (Success/Verified) */
-    --bg-color: #f8fafc;           /* Very Light Greyish Blue (Clean look) */
+    /* TrustDekho Theme */
+    --primary-color: #0f172a;      /* Dark Navy Blue */
+    --accent-color: #10b981;       /* Mint Green */
+    --bg-color: #f8fafc;           /* Light Greyish Blue */
     --card-bg: #ffffff;            /* Pure White */
     --text-main: #1e293b;          /* Soft Black */
     --text-light: #64748b;         /* Slate Grey */
-    --border-radius: 12px;         /* Modern Rounded Corners */
+    --border-radius: 12px;
     --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     
-    /* Font Override */
     --font-main: 'Poppins', sans-serif;
 }
 
@@ -42,17 +40,17 @@ ul {
 }
 
 .container {
-    max-width: 1280px; /* Thoda aur wide screen */
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ================= HEADER SECTION (Modern SaaS Style) ================= */
+/* ================= HEADER SECTION (FIXED: No Sticky) ================= */
 .main-header {
-    background-color: var(--card-bg); /* White Header */
-    height: 80px; /* Thoda bada header premium feel ke liye */
-    position: sticky;
-    top: 0;
+    background-color: var(--card-bg);
+    height: 80px;
+    /* 'Sticky' hata diya taaki scroll karne par header upar chala jaye */
+    position: relative; 
     z-index: 1000;
     box-shadow: var(--shadow-soft);
     border-bottom: 1px solid #e2e8f0;
@@ -79,7 +77,7 @@ ul {
 }
 
 .logo .highlight {
-    color: var(--accent-color); /* Green Highlight */
+    color: var(--accent-color);
 }
 
 .logo .tagline {
@@ -90,14 +88,14 @@ ul {
 }
 
 .logo .tagline i {
-    color: #f59e0b; /* Star color */
+    color: #f59e0b;
 }
 
-/* Search Box - Rounded & Clean */
+/* Search Box */
 .search-box {
     background: #f1f5f9;
     width: 45%;
-    border-radius: 50px; /* Full Rounded pill shape */
+    border-radius: 50px;
     display: flex;
     align-items: center;
     padding: 5px 20px;
@@ -135,7 +133,7 @@ ul {
     color: var(--primary-color);
 }
 
-/* Nav Links - Buttons style */
+/* Nav Links */
 .nav-links {
     display: flex;
     align-items: center;
@@ -152,7 +150,6 @@ ul {
     color: var(--accent-color);
 }
 
-/* Login Button - Modern Gradient */
 .nav-item.login-btn button {
     background-color: var(--primary-color);
     color: var(--white);
@@ -171,7 +168,7 @@ ul {
     box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
 }
 
-/* ================= CATEGORY NAV (Floating Pills) ================= */
+/* ================= CATEGORY NAV (Premium Colors) ================= */
 .category-nav {
     background: transparent;
     padding: 20px 0;
@@ -181,41 +178,89 @@ ul {
 
 .cat-list {
     display: flex;
-    justify-content: center; /* Center align items */
-    gap: 30px;
+    justify-content: center;
+    gap: 20px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding: 15px; /* Padding badhayi taaki shadow na kate */
 }
+
+/* Hide Scrollbar */
+.cat-list::-webkit-scrollbar { display: none; }
 
 .cat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.85rem;
+    justify-content: center;
+    min-width: 90px;
+    height: 110px; /* Thoda lamba kiya */
+    background: var(--card-bg);
+    border: 1px solid #e2e8f0;
+    border-radius: 18px; /* Smooth Rounded Corners */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Soft Shadow */
+    position: relative;
+    overflow: hidden;
+}
+
+/* ICON STYLING (Soft Background Added) */
+.cat-item i {
+    font-size: 1.6rem;
+    color: var(--primary-color); /* Navy Blue Icon */
+    background: #f1f5f9; /* Light Blue-Grey Background */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Icon gol circle mein rahega */
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Text Styling */
+.cat-item span {
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--text-light);
-    padding: 10px 15px;
-    background: var(--card-bg);
-    border-radius: 16px;
-    min-width: 90px;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid #f1f5f9;
+    transition: color 0.3s;
 }
 
+/* === HOVER EFFECTS (Jadoo Yahan Hai) === */
 .cat-item:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-    color: var(--primary-color);
-    border-color: var(--accent-color);
+    box-shadow: 0 12px 20px -5px rgba(16, 185, 129, 0.15); /* Green Glow Shadow */
+    border-color: var(--accent-color); /* Green Border */
 }
 
-.cat-item img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    margin-bottom: 8px;
+/* Icon change on hover */
+.cat-item:hover i {
+    background: var(--accent-color); /* Pura Green Background */
+    color: white; /* White Icon */
+    transform: scale(1.1);
 }
+
+.cat-item:hover span {
+    color: var(--primary-color); /* Dark Text */
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .cat-list {
+        justify-content: flex-start;
+        padding-left: 10px;
+    }
+    .cat-item {
+        min-width: 85px;
+        height: 100px;
+    }
+    .cat-item i {
+        width: 45px; height: 45px;
+        font-size: 1.4rem;
+    }
+}
+
 
 /* ================= HERO SLIDER ================= */
 .hero-slider {
@@ -226,16 +271,16 @@ ul {
 .slider-container img {
     width: 100%;
     height: auto;
-    border-radius: 20px; /* Soft round corners */
+    border-radius: 20px;
     box-shadow: var(--shadow-hover);
 }
 
-/* ================= TRUST FEATURES (Glassmorphism) ================= */
+/* ================= TRUST FEATURES ================= */
 .trust-features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Dark Gradient */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     padding: 40px;
     margin-bottom: 40px;
     border-radius: 20px;
@@ -245,14 +290,14 @@ ul {
 
 .trust-item {
     display: flex;
-    flex-direction: row; /* Horizontal layout */
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 500;
     gap: 15px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.1); /* Glass effect */
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     backdrop-filter: blur(5px);
 }
@@ -285,7 +330,6 @@ ul {
     position: relative;
 }
 
-/* Stylish underline for heading */
 .section-header h3::after {
     content: '';
     position: absolute;
@@ -313,7 +357,7 @@ ul {
     color: white;
 }
 
-/* PRODUCT GRID & CARD (The Star of the Show) */
+/* PRODUCT GRID & CARD */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -325,7 +369,7 @@ ul {
     border: 1px solid #f1f5f9;
     border-radius: 16px;
     padding: 15px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
     position: relative;
     box-shadow: var(--shadow-soft);
@@ -334,7 +378,7 @@ ul {
 
 .product-card:hover {
     box-shadow: var(--shadow-hover);
-    transform: translateY(-10px); /* Upar udega */
+    transform: translateY(-10px);
     border-color: rgba(16, 185, 129, 0.2);
 }
 
@@ -358,13 +402,12 @@ ul {
 }
 
 .product-card:hover .card-img img {
-    transform: scale(1.1) rotate(2deg); /* Image zoom aur tilt hogi */
+    transform: scale(1.1) rotate(2deg);
 }
 
-/* Unique Video Badge */
 .video-tag {
     position: absolute;
-    top: 10px; /* Bottom se top pe shift kiya for better look */
+    top: 10px;
     right: 10px;
     left: auto;
     background-color: rgba(255, 255, 255, 0.9);
@@ -393,8 +436,8 @@ ul {
 }
 
 .rating-badge {
-    background-color: #fef3c7; /* Pale Yellow bg */
-    color: #d97706; /* Dark Gold text */
+    background-color: #fef3c7;
+    color: #d97706;
     font-size: 0.75rem;
     padding: 4px 8px;
     border-radius: 6px;
@@ -403,11 +446,13 @@ ul {
     font-weight: 700;
 }
 
+/* PRICING AREA (FIXED: Original Price visible) */
 .price-area {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px; /* Thoda gap */
     margin-bottom: 10px;
+    flex-wrap: wrap; 
 }
 
 .current-price {
@@ -416,17 +461,20 @@ ul {
     color: var(--primary-color);
 }
 
+.original-price {
+    display: inline-block; /* Ab ye dikhega */
+    font-size: 0.9rem;
+    color: #94a3b8;
+    text-decoration: line-through; /* Cut wala effect */
+}
+
 .discount {
     font-size: 0.75rem;
-    background: #dcfce7; /* Light Green */
+    background: #dcfce7;
     color: var(--accent-color);
     padding: 2px 6px;
     border-radius: 4px;
     font-weight: 700;
-}
-
-.original-price {
-    display: none; /* Clean look ke liye original price hide kar di, optional hai */
 }
 
 .tester-note {
@@ -472,48 +520,55 @@ ul {
 
 .footer-col ul li a:hover {
     color: var(--accent-color);
-    padding-left: 5px; /* Thoda slide effect */
+    padding-left: 5px;
 }
 
 .sub-footer {
     text-align: center;
     padding: 25px;
-    background-color: #020617; /* Even darker footer bottom */
+    background-color: #020617;
     color: #64748b;
 }
 
-/* ================= RESPONSIVE (Mobile) ================= */
+/* ================= RESPONSIVE (Mobile Updates) ================= */
 @media (max-width: 768px) {
     .main-header {
         height: auto;
         padding: 10px 0;
     }
     
+    /* Header Content: Row for Back Button Logic */
     .header-content {
-        flex-direction: column;
+        flex-direction: row; 
+        flex-wrap: wrap;
         gap: 15px;
+        align-items: center;
+    }
+    
+    /* Logo thoda adjust karein taaki back button fit ho */
+    .logo {
+        flex: 1;
+        order: 1;
     }
     
     .search-box {
         width: 100%;
-        order: 2; /* Search bar logo ke neeche aayega */
+        order: 3; 
+        margin-top: 5px;
     }
     
-    .logo {
-        width: 100%;
-        text-align: center;
-        align-items: center;
-    }
-    
+    /* Nav links hide kar sakte hain ya menu button dikha sakte hain */
     .nav-links {
-        width: 100%;
-        justify-content: center;
-        gap: 20px;
-        order: 3;
+        display: none; 
+    }
+    
+    /* Back button positioning */
+    .back-btn {
+        margin-right: 15px;
     }
 
     .trust-features {
-        grid-template-columns: 1fr; /* Stack vertically on mobile */
+        grid-template-columns: 1fr;
         padding: 20px;
     }
     
